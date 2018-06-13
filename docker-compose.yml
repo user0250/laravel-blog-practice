@@ -1,0 +1,26 @@
+version: '2'
+services:
+  nginx:
+    restart: always
+    image: nginx
+    container_name: nginx72
+    volumes:
+      - ./www/test:/app
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+    privileged: true
+    links:
+      - php7.2:php7.2
+
+  php7.2:
+    restart: always
+    image: bitnami/php-fpm:7.2
+    container_name: php72
+    expose:
+      - "9000"
+    volumes:
+      - ./www/test:/app
+    privileged: true
+
+
